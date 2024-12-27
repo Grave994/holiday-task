@@ -5,7 +5,7 @@ import { TextField, Button, Grid } from '@mui/material';
 import { useRegisterUserMutation } from './../api/userApi';
 import Swal from 'sweetalert2';
 import { makeStyles } from '@mui/styles';
-
+//Teacher Register
 const useStyles = makeStyles((theme) => ({
     formContainer: {
         maxWidth: 600,
