@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { TextField, Button, Grid } from '@mui/material';
@@ -72,15 +72,42 @@ const teacherValidationSchema = Yup.object({
 function TeacherRegister() {
     const classes = useStyles();
     const [registerUser, { isLoading }] = useRegisterUserMutation();
+    const [emailExists, setEmailExists] = useState(false);
+    const [usernameExists, setUsernameExists] = useState(false);
+
+    const handleEmailChange = async (email) => {
+        // Emailin mövcud olub olmadığını yoxlamaq
+        const response = await fetch(`http://localhost:3000/users?email=${email}`);
+        const data = await response.json();
+        setEmailExists(data.length > 0);
+    };
+
+    const handleUsernameChange = async (username) => {
+        // Usernamein mövcud olub olmadığını yoxlamaq
+        const response = await fetch(`http://localhost:3000/users?username=${username}`);
+        const data = await response.json();
+        setUsernameExists(data.length > 0);
+    };
 
     const handleSubmit = async (values, { resetForm }) => {
+        if (emailExists || usernameExists) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Email or Username already exists!',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+            return;
+        }
+
         try {
-            const data = {
+            // Yalnız email və username yoxlandıqdan sonra qeydiyyatı həyata keçir
+            const dataToRegister = {
                 ...values,
-                role: "teacher", 
+                role: 'teacher',
             };
 
-            await registerUser(data).unwrap();
+            await registerUser(dataToRegister).unwrap();
             resetForm();
 
             Swal.fire({
@@ -138,10 +165,12 @@ function TeacherRegister() {
                                     label="Username"
                                     variant="outlined"
                                     fullWidth
+                                    onBlur={(e) => handleUsernameChange(e.target.value)} // Username dəyişdikcə yoxlama
                                     helperText={<ErrorMessage name="username" />}
                                     error={touched.username && Boolean(errors.username)}
                                     className={classes.textField}
                                 />
+                                {usernameExists && <span className={classes.errorMessage}>Username already exists</span>}
                             </Grid>
                             <Grid item xs={12}>
                                 <Field
@@ -150,10 +179,12 @@ function TeacherRegister() {
                                     label="Email"
                                     variant="outlined"
                                     fullWidth
+                                    onBlur={(e) => handleEmailChange(e.target.value)} // Email dəyişdikcə yoxlama
                                     helperText={<ErrorMessage name="email" />}
                                     error={touched.email && Boolean(errors.email)}
                                     className={classes.textField}
                                 />
+                                {emailExists && <span className={classes.errorMessage}>Email already exists</span>}
                             </Grid>
                             <Grid item xs={12}>
                                 <Field
@@ -249,4 +280,3 @@ function TeacherRegister() {
 }
 
 export default TeacherRegister;
-
