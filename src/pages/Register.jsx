@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Box, Button, Typography, Container } from '@mui/material';
-import TeacherRegister from '../components/TeacherRegister';
-import StudentRegister from '../components/StudentRegister';
+import TeacherRegister from '../components/Teacher/TeacherRegister';
+import StudentRegister from '../components/Student/StudentRegister';
 
 function Register() {
     const [open, setOpen] = useState(true); 

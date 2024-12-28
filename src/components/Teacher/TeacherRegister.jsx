@@ -2,10 +2,11 @@ import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { TextField, Button, Grid } from '@mui/material';
-import { useRegisterUserMutation } from './../api/userApi';
+import { useRegisterUserMutation } from '../../api/userApi';
 import Swal from 'sweetalert2';
 import { makeStyles } from '@mui/styles';
-//Teacher Register
+
+// Teacher Register
 const useStyles = makeStyles((theme) => ({
     formContainer: {
         maxWidth: 600,
@@ -74,7 +75,12 @@ function TeacherRegister() {
 
     const handleSubmit = async (values, { resetForm }) => {
         try {
-            await registerUser(values).unwrap();
+            const data = {
+                ...values,
+                role: "teacher", 
+            };
+
+            await registerUser(data).unwrap();
             resetForm();
 
             Swal.fire({
@@ -243,3 +249,4 @@ function TeacherRegister() {
 }
 
 export default TeacherRegister;
+

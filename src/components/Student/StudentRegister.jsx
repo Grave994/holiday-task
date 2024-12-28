@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { TextField, Button, Grid } from '@mui/material';
-import { useRegisterUserMutation } from './../api/userApi';
+import { useRegisterUserMutation } from '../../api/userApi';
 import Swal from 'sweetalert2';
 import { makeStyles } from '@mui/styles'; 
 //Student Register
@@ -71,7 +71,8 @@ function StudentRegister() {
     try {
       const userData = {
         ...values,
-        grades: [], 
+        grades: [],
+        role: "student",
       };
 
       await registerUser(userData).unwrap();
