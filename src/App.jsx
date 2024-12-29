@@ -1,16 +1,27 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { Routes, Route } from 'react-router-dom'; 
 import { store } from './app/store';
-import { ToastContainer } from 'react-toastify'; 
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Register from './pages/Register';
-//App.jsx
+import StudentRegister from './components/Student/StudentRegister';
+import TeacherRegister from './components/Teacher/TeacherRegister';
+
 function App() {
   return (
-    <Provider store={store}>
-      <Register />
-      <ToastContainer />
-    </Provider>
+    <>
+       <Routes>
+      <Route path="/register" element={<Register />} />
+      <Route path="/student-register" element={<StudentRegister />} />
+      <Route path="/teacher-register" element={<TeacherRegister />} />
+    </Routes>
+      <Provider store={store}>
+        <Register />
+        <ToastContainer />
+      </Provider>
+    </>
+
   );
 }
 

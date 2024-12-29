@@ -5,6 +5,8 @@ import { TextField, Button, Grid } from '@mui/material';
 import { useRegisterUserMutation } from '../../api/userApi';
 import Swal from 'sweetalert2';
 import { makeStyles } from '@mui/styles';
+import { useNavigate } from 'react-router-dom'; // React Router `useNavigate` hook-u
+
 
 // Teacher Register
 const useStyles = makeStyles((theme) => ({
@@ -124,6 +126,9 @@ function TeacherRegister() {
                 confirmButtonText: 'OK',
             });
         }
+    };
+    const handleGoBack = () => {
+        navigate(-1); // `-1` parametrini verərək bir addım geri gedirik
     };
 
     return (
@@ -269,6 +274,16 @@ function TeacherRegister() {
                                     className={classes.button}
                                 >
                                     {isLoading ? 'Registering...' : 'Register'}
+                                </Button>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    onClick={handleGoBack} // Trigger the go back action
+                                    className={classes.button}
+                                >
+                                    Go Back
                                 </Button>
                             </Grid>
                         </Grid>
