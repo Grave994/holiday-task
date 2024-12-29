@@ -455,7 +455,7 @@ import { TextField, Button, Grid } from '@mui/material';
 import { useRegisterUserMutation } from '../../api/userApi';
 import Swal from 'sweetalert2';
 import { makeStyles } from '@mui/styles'; 
-import { useNavigate } from 'react-router-dom'; // React Router `useNavigate` hook-u
+import { useNavigate } from 'react-router-dom'; 
 
 //Student Register
 const useStyles = makeStyles((theme) => ({
@@ -518,9 +518,8 @@ const studentValidationSchema = Yup.object({
 function StudentRegister() {
   const classes = useStyles();
   const [registerUser, { isLoading }] = useRegisterUserMutation();
-  const navigate = useNavigate(); // `useNavigate` hook-u ilə yönləndirməyi təmin edirik
+  const navigate = useNavigate(); 
 
-  // Modal açılmasını idarə etmək üçün state əlavə edirik
   const [openModal, setOpenModal] = useState(false);
 
   const handleSubmit = async (values, { resetForm }) => {
@@ -550,10 +549,9 @@ function StudentRegister() {
     }
   };
 
-  // Go back handler with React Router
   const handleGoBack = () => {
-    setOpenModal(true); // Modalı yenidən açmaq üçün setOpenModal(true) istifadə edirik
-    navigate(-1); // `-1` parametrini verərək bir addım geri gedirik
+    setOpenModal(true); 
+    navigate(-1); 
   };
 
   return (
@@ -658,12 +656,11 @@ function StudentRegister() {
                   {isLoading ? 'Registering...' : 'Register'}
                 </Button>
               </Grid>
-              {/* Go back button */}
               <Grid item xs={12}>
                 <Button
                   fullWidth
                   variant="contained"
-                  onClick={handleGoBack} // Trigger the go back action
+                  onClick={handleGoBack} 
                   className={classes.button}
                 >
                   Go Back

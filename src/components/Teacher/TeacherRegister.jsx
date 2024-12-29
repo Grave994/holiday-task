@@ -5,7 +5,7 @@ import { TextField, Button, Grid } from '@mui/material';
 import { useRegisterUserMutation } from '../../api/userApi';
 import Swal from 'sweetalert2';
 import { makeStyles } from '@mui/styles';
-import { useNavigate } from 'react-router-dom'; // React Router `useNavigate` hook-u
+import { useNavigate } from 'react-router-dom'; 
 
 
 // Teacher Register
@@ -78,14 +78,12 @@ function TeacherRegister() {
     const [usernameExists, setUsernameExists] = useState(false);
 
     const handleEmailChange = async (email) => {
-        // Emailin mövcud olub olmadığını yoxlamaq
         const response = await fetch(`http://localhost:3000/users?email=${email}`);
         const data = await response.json();
         setEmailExists(data.length > 0);
     };
 
     const handleUsernameChange = async (username) => {
-        // Usernamein mövcud olub olmadığını yoxlamaq
         const response = await fetch(`http://localhost:3000/users?username=${username}`);
         const data = await response.json();
         setUsernameExists(data.length > 0);
@@ -103,7 +101,6 @@ function TeacherRegister() {
         }
 
         try {
-            // Yalnız email və username yoxlandıqdan sonra qeydiyyatı həyata keçir
             const dataToRegister = {
                 ...values,
                 role: 'teacher',
@@ -128,7 +125,7 @@ function TeacherRegister() {
         }
     };
     const handleGoBack = () => {
-        navigate(-1); // `-1` parametrini verərək bir addım geri gedirik
+        navigate(-1); 
     };
 
     return (
@@ -170,7 +167,7 @@ function TeacherRegister() {
                                     label="Username"
                                     variant="outlined"
                                     fullWidth
-                                    onBlur={(e) => handleUsernameChange(e.target.value)} // Username dəyişdikcə yoxlama
+                                    onBlur={(e) => handleUsernameChange(e.target.value)} 
                                     helperText={<ErrorMessage name="username" />}
                                     error={touched.username && Boolean(errors.username)}
                                     className={classes.textField}
@@ -184,7 +181,7 @@ function TeacherRegister() {
                                     label="Email"
                                     variant="outlined"
                                     fullWidth
-                                    onBlur={(e) => handleEmailChange(e.target.value)} // Email dəyişdikcə yoxlama
+                                    onBlur={(e) => handleEmailChange(e.target.value)} 
                                     helperText={<ErrorMessage name="email" />}
                                     error={touched.email && Boolean(errors.email)}
                                     className={classes.textField}
@@ -280,7 +277,7 @@ function TeacherRegister() {
                                 <Button
                                     fullWidth
                                     variant="contained"
-                                    onClick={handleGoBack} // Trigger the go back action
+                                    onClick={handleGoBack} 
                                     className={classes.button}
                                 >
                                     Go Back
